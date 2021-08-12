@@ -1,3 +1,4 @@
+import numpy as np
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -19,7 +20,7 @@ def svm(gender,age,study,parents,gparents,siblings,smoking,glasses,eyeExam,indoo
     predictionCustom = svmClassifier.predict(np.array(
         [gender, age, study, parents, gparents, siblings, smoking, glasses, eyeExam, indoorAct, readingTime, books, bookDistance, outdoorAct, sleepingTime, goToSleep, wakeUpTime, exercise],
     ).reshape(1,-1))
-    jsonFile['Myopia'] = str(predictionCustom)
+    jsonFile['Myopia'] = str(predictionCustom[0])
     jsonFile['ModelAccuracy'] = str(metrics.accuracy_score(yTest, predictionY))
     jsonFile['ModelUsed'] = 'Support Vector Machine'
     return jsonFile
