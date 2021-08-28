@@ -2,13 +2,16 @@ import json
 
 from flask import Flask, request
 
+from Myopia.logistic_regression import logistic_regression
+from Myopia.random_forest import random_forest
 from Myopia.svm import svm
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST','GET'])
+@app.route('/', methods=['POST', 'GET'])
 def hello_world():  # put application's code here
+    modelToBeUsed = request.args['model']
     gender = request.args['gender']
     age = request.args['age']
     study = request.args['study']
@@ -27,26 +30,69 @@ def hello_world():  # put application's code here
     goToSleep = request.args['goToSleep']
     wakeUpTime = request.args['wakeUpTime']
     exercise = request.args['exercise']
-    return svm(
-        gender,
-        age,
-        study,
-        parents,
-        gparents,
-        siblings,
-        smoking,
-        glasses,
-        eyeExam,
-        indoorAct,
-        readingTime,
-        books,
-        bookDistance,
-        outdoorAct,
-        sleepingTime,
-        goToSleep,
-        wakeUpTime,
-        exercise,
-    )
+    if modelToBeUsed == "SVM":
+        return svm(
+            gender,
+            age,
+            study,
+            parents,
+            gparents,
+            siblings,
+            smoking,
+            glasses,
+            eyeExam,
+            indoorAct,
+            readingTime,
+            books,
+            bookDistance,
+            outdoorAct,
+            sleepingTime,
+            goToSleep,
+            wakeUpTime,
+            exercise,
+        )
+    elif modelToBeUsed == "RandomForest":
+        return random_forest(
+            gender,
+            age,
+            study,
+            parents,
+            gparents,
+            siblings,
+            smoking,
+            glasses,
+            eyeExam,
+            indoorAct,
+            readingTime,
+            books,
+            bookDistance,
+            outdoorAct,
+            sleepingTime,
+            goToSleep,
+            wakeUpTime,
+            exercise,
+        )
+    else:
+        return logistic_regression(
+            gender,
+            age,
+            study,
+            parents,
+            gparents,
+            siblings,
+            smoking,
+            glasses,
+            eyeExam,
+            indoorAct,
+            readingTime,
+            books,
+            bookDistance,
+            outdoorAct,
+            sleepingTime,
+            goToSleep,
+            wakeUpTime,
+            exercise,
+        )
 
 
 if __name__ == '__main__':
