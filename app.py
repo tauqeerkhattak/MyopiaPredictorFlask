@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['POST', 'GET'])
-def hello_world():  # put application's code here
+def hello_world():
     modelToBeUsed = request.args['model']
     gender = request.args['gender']
     age = request.args['age']
